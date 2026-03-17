@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-purple: #6B4EFF;
+  --color-pink: #FF2E9E;
+  --color-cyan: #00D9FF;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+}
+
+:root {
+  --purple: #6B4EFF;
+  --pink: #FF2E9E;
+  --cyan: #00D9FF;
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --gray: #F5F5F5;
+  --gray-dark: #1a1a1a;
+  --gradient-1: linear-gradient(135deg, #6B4EFF 0%, #FF2E9E 100%);
+  --gradient-2: linear-gradient(45deg, #00D9FF 0%, #6B4EFF 100%);
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --shadow-glow: 0 0 40px rgba(107, 78, 255, 0.3);
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+#root {
+  min-height: 100vh;
+}
