@@ -1,6 +1,8 @@
-# Innovation Immersion Fest - Prueba Técnica
+# Innovation Immersion Fest
 
 Landing page interactiva para el evento **"INNOVATION IMMERSION FEST"** - Donde la tecnología se siente.
+
+[![GitHub](https://img.shields.io/badge/GitHub-Repositorio-181717?style=flat&logo=github)](https://github.com/cryptohumano/bengalaprueba)
 
 ## Stack
 
@@ -65,17 +67,21 @@ prueba-tecnica/
 
 ## Características
 
-- ✅ Hero con animación glitch y gradientes
-- ✅ Sección de información del evento con cards interactivas
-- ✅ Galería multimedia con imágenes
-- ✅ Formulario de registro con validación
-- ✅ Countdown de 10 minutos (el formulario desaparece al expirar)
-- ✅ Formulario waitlist cuando expira (guarda correos para próximo evento)
-- ✅ Panel admin protegido en `/admin` para ver registros y waitlist
-- ✅ Reset countdown: visita `/?reset=1` para reiniciar (testing)
-- ✅ Animaciones con Framer Motion (scroll, hover)
-- ✅ Backend con validaciones (express-validator)
-- ✅ Persistencia en MySQL
+**Frontend**
+- Hero con partículas Three.js, orbes animados y títulos interactivos (letra por letra)
+- Sección EventInfo con cards que revelan imagen al hover
+- Galería carrusel vertical con modal fullscreen (imagen + info + tags)
+- Sección de video YouTube (autoplay, loop, muted)
+- Formulario de registro con countdown (inicia al llegar a la sección)
+- Formulario waitlist cuando expira
+- Panel admin en `/admin` (registros, waitlist, duplicados, export CSV)
+- Loading inicial, header sticky, footer con contacto y enlace a GitHub
+
+**Backend**
+- API registro y waitlist con validaciones (express-validator)
+- API admin protegida con contraseña
+- Export CSV de registros y waitlist para Excel
+- Cierre/apertura manual de registro
 
 ## Variables de entorno (backend)
 
@@ -111,6 +117,21 @@ Variables opcionales en `.env` en la raíz:
 - `ADMIN_PASSWORD` (default: fest2026)
 
 Para detener: `docker compose down` o `./scripts/docker-down.sh`
+
+**Reconstruir** (después de cambios en el código):
+```bash
+docker compose up -d --build
+# o solo el frontend si solo cambiaste el frontend:
+docker compose up -d --build frontend
+```
+
+## Admin
+
+- **URL:** `/admin` (contraseña por defecto: `fest2026`)
+- Ver registros completos y waitlist
+- Buscar por nombre, email o mensaje
+- Exportar a CSV: botones "Exportar registros CSV" y "Exportar waitlist CSV"
+- Toggle para cerrar/abrir el registro manualmente
 
 ## Lógica del countdown
 
