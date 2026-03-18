@@ -4,13 +4,14 @@ let pool = null;
 
 const getPool = () => {
   if (!pool) {
-    const host = process.env.DB_HOST || 'localhost';
+    // Soporta DB_* (local/docker) y MYSQL* (Railway)
+    const host = process.env.DB_HOST || process.env.MYSQLHOST || 'localhost';
     pool = mysql.createPool({
       host: host === 'localhost' ? '127.0.0.1' : host,
-      port: parseInt(process.env.DB_PORT || '3306', 10),
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'innovation_fest',
+      port: parseInt(process.env.DB_PORT || process.env.MYSQLPORT || '3306', 10),
+      user: process.env.DB_USER || process.env.MYSQLUSER || 'root',
+      password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || '',
+      database: process.env.DB_NAME || process.env.MYSQLDATABASE || 'innovation_fest',
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,

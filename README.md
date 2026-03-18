@@ -149,6 +149,18 @@ El backend necesita MySQL. Opciones:
 - **Azure Database for MySQL Flexible Server**: crea el recurso y usa su connection string.
 - **Plan B**: mientras tanto, el backend arranca sin BD (modo degradado).
 
+## Despliegue en Railway
+
+Despliegue en un solo servicio (frontend + backend) con MySQL:
+
+1. **Conecta el repo** a Railway desde GitHub.
+2. **Añade MySQL**: + New → Database → MySQL.
+3. **Vincula las variables** del MySQL al servicio de la app (Connect → Add to service).
+4. **Ejecuta el schema** una vez: conecta a MySQL y ejecuta `backend/schema.sql`.
+5. **Genera dominio** en Settings → Networking.
+
+Guía detallada: [docs/RAILWAY-DEPLOY.md](docs/RAILWAY-DEPLOY.md)
+
 ## Lógica del countdown
 
 - **No es por IP:** El countdown es por navegador (localStorage). Cada usuario tiene su propio timer.
