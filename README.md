@@ -133,6 +133,22 @@ docker compose up -d --build frontend
 - Exportar a CSV: botones "Exportar registros CSV" y "Exportar waitlist CSV"
 - Toggle para cerrar/abrir el registro manualmente
 
+## Despliegue en Azure
+
+### Backend (App Service)
+
+1. **Elimina el workflow por defecto** que Azure creó (si existe): `.github/workflows/*.yml` que busque `package.json` en la raíz.
+2. **Usa el workflow incluido**: `.github/workflows/azure-backend.yml` despliega desde la carpeta `backend`.
+3. **Secreto en GitHub**: En el repo → Settings → Secrets → Actions, añade `AZURE_WEBAPP_PUBLISH_PROFILE` con el perfil de publicación de tu App Service (Azure Portal → App Service → Get publish profile).
+4. **Ajusta el nombre** en el workflow si es distinto: `AZURE_WEBAPP_NAME: bengalaprueba`.
+5. **Variables en Azure**: Configura `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `ADMIN_PASSWORD` en App Service → Configuration → Application settings.
+
+### Base de datos
+
+El backend necesita MySQL. Opciones:
+- **Azure Database for MySQL Flexible Server**: crea el recurso y usa su connection string.
+- **Plan B**: mientras tanto, el backend arranca sin BD (modo degradado).
+
 ## Lógica del countdown
 
 - **No es por IP:** El countdown es por navegador (localStorage). Cada usuario tiene su propio timer.
