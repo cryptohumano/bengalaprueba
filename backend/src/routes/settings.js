@@ -18,9 +18,9 @@ router.get('/registration-status', async (req, res) => {
   try {
     const pool = getPool();
     const [rows] = await pool.execute(
-      "SELECT `value` FROM settings WHERE `key` = 'registration_closed' LIMIT 1"
+      "SELECT setting_value FROM settings WHERE setting_key = 'registration_closed' LIMIT 1"
     );
-    const closed = rows.length > 0 && (rows[0].value === '1' || rows[0].value === 'true');
+    const closed = rows.length > 0 && (rows[0].setting_value === '1' || rows[0].setting_value === 'true');
     res.json({ open: !closed });
   } catch {
     res.json({ open: true });
@@ -31,7 +31,7 @@ router.get('/admin/settings', authMiddleware, async (req, res) => {
   try {
     const pool = getPool();
     const [rows] = await pool.execute('SELECT * FROM settings');
-    const settings = Object.fromEntries(rows.map((r) => [r.key, r.value]));
+    const settings = Object.fromEntries(rows.map((r) => [r.setting_key, r.setting_value]));
     res.json(settings);
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener configuración' });
@@ -46,9 +46,9 @@ router.patch('/admin/settings', authMiddleware, async (req, res) => {
     }
     const pool = getPool();
     const [rows] = await pool.execute(
-      "SELECT `value` FROM settings WHERE `key` = 'registration_closed' LIMIT 1"
+      "SELECT setting_value FROM settings WHERE setting_key = 'registration_closed' LIMIT 1"
     );
-    const closed = rows.length > 0 && (rows[0].value === '1' || rows[0].value === 'true');
+    const closed = rows.length > 0 && (rows[0].setting_value === '1' || rows[0].setting_value === 'true');
     res.json({ registration_closed: closed });
   } catch (err) {
     res.status(500).json({ error: 'Error al actualizar configuración' });

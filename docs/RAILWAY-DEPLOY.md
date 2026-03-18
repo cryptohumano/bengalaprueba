@@ -73,12 +73,12 @@ CREATE TABLE IF NOT EXISTS waitlist (
 );
 
 CREATE TABLE IF NOT EXISTS settings (
-  `key` VARCHAR(50) PRIMARY KEY,
-  `value` VARCHAR(255) NOT NULL,
+  setting_key VARCHAR(50) PRIMARY KEY,
+  setting_value VARCHAR(255) NOT NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT IGNORE INTO settings (`key`, `value`) VALUES ('registration_closed', '0');
+INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('registration_closed', '0');
 ```
 
 **Alternativa:** Railway puede tener un "Query" o "Data" tab en el servicio MySQL para ejecutar SQL desde el dashboard.

@@ -6,9 +6,9 @@ const router = express.Router();
 async function getSettings(pool) {
   try {
     const [rows] = await pool.execute(
-      "SELECT `value` FROM settings WHERE `key` = 'registration_closed' LIMIT 1"
+      "SELECT setting_value FROM settings WHERE setting_key = 'registration_closed' LIMIT 1"
     );
-    const closed = rows.length > 0 && (rows[0].value === '1' || rows[0].value === 'true');
+    const closed = rows.length > 0 && (rows[0].setting_value === '1' || rows[0].setting_value === 'true');
     return { registration_closed: closed };
   } catch {
     return { registration_closed: false };

@@ -6,10 +6,10 @@ async function isRegistrationClosed() {
   try {
     const pool = getPool();
     const [rows] = await pool.execute(
-      "SELECT `value` FROM settings WHERE `key` = 'registration_closed' LIMIT 1"
+      "SELECT setting_value FROM settings WHERE setting_key = 'registration_closed' LIMIT 1"
     );
     if (rows.length === 0) return false;
-    return rows[0].value === '1' || rows[0].value === 'true';
+    return rows[0].setting_value === '1' || rows[0].setting_value === 'true';
   } catch {
     return false;
   }
@@ -18,7 +18,7 @@ async function isRegistrationClosed() {
 async function setRegistrationClosed(closed) {
   const pool = getPool();
   await pool.execute(
-    "INSERT INTO settings (`key`, `value`) VALUES ('registration_closed', ?) ON DUPLICATE KEY UPDATE `value` = ?",
+    "INSERT INTO settings (setting_key, setting_value) VALUES ('registration_closed', ?) ON DUPLICATE KEY UPDATE setting_value = ?",
     [closed ? '1' : '0', closed ? '1' : '0']
   );
   cachedClosed = closed;
