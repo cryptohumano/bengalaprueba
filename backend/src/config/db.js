@@ -20,13 +20,21 @@ const getPool = () => {
 };
 
 const initDb = async () => {
-  try {
-    const connection = getPool();
-    await connection.query('SELECT 1');
-    console.log('✅ MySQL connected');
-    return connection;
-  } catch (err) {
-    throw err;
+  const maxAttempts = 15;
+  const delayMs = 2000;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const connection = getPool();
+      await connection.query('SELECT 1');
+      console.log('✅ MySQL connected');
+      return connection;
+    } catch (err) {
+      if (attempt === maxAttempts) throw err;
+      console.log(`⏳ MySQL no listo (intento ${attempt}/${maxAttempts}), reintentando en ${delayMs / 1000}s...`);
+      await new Promise((r) => setTimeout(r, delayMs));
+      pool = null; // reset pool para nuevo intento
+    }
   }
 };
 
