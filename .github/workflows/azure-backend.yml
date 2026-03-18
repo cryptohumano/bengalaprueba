@@ -33,6 +33,11 @@ jobs:
       - name: Create deployment package
         run: zip -r ../backend.zip . -x "node_modules/.cache/*" -x ".env" -x "*.log"
 
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
